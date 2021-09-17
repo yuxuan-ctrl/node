@@ -34,10 +34,12 @@ const handleServe = (req, res) => {
   req.path = req.url.split('?')[0];
   getPostData(req).then((postData) => {
     req.body = postData;
-    const blogName = handleBlogRoutes(req, res);
-    if (blogName) {
-      res.end(JSON.stringify(blogName));
-      return
+    const blogNamePromise = handleBlogRoutes(req, res);
+    if (blogNamePromise) {
+      blogNamePromise.then((blogName) => {
+        res.end(JSON.stringify(blogName));
+      })
+      return;
     }
     res.writeHead(404, { "Content-Type": 'text/plain' })
     res.write('404 Not Found')
