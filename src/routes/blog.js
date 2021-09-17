@@ -1,6 +1,5 @@
 const { SuccessModel, ErrorModel } = require('../model/responseModel')
 const { getList, createNewList } = require('../controller/blog')
-const { execSQL } = require('../dbbase/mysql')
 
 const handleBlogRoutes = (req, res) => {
   const id = req.query.id || '';
@@ -8,19 +7,16 @@ const handleBlogRoutes = (req, res) => {
   const keyword = req.query.keyword || '';
   // req.path = req.url.spilt('?')[0];
   if (req.path === '/api/blog' && req.method === 'GET') {
-    const listData = getList(author, keyword);
-    return new SuccessModel(listData);
+    const listDataPromise = getList(author, keyword);
+    return listDataPromise.then(listData => {
+      return new SuccessModel(listData);
+    })
     // return {
     //   name: 'yuxuan',
     //   age: 18
     // }
   }
   if (req.path === '/api/app' && req.method === 'GET') {
-    const sql = `select * from blioglist;`;
-    execSQL(sql).then(res => {
-      console.log(res);
-
-    })
 
 
   }
