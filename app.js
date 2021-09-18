@@ -1,4 +1,4 @@
-const handleBlogRoutes = require('./src/routes/blog')
+const handleBlogRoutes = require('./src/routes/route')
 
 const querystring = require('querystring')
 
