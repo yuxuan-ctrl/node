@@ -30,6 +30,7 @@ const getPostData = (req, res) => {
 }
 const handleServe = (req, res) => {
   res.setHeader('Content-Type', 'application/json') //设置数据返回的格式
+  res.setHeader("Access-Control-Allow-Origin", "*");
   req.query = querystring.parse(req.url.split('?')[1])
   req.path = req.url.split('?')[0];
   getPostData(req).then((postData) => {

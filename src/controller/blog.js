@@ -34,4 +34,10 @@ const updateList = (listname, id, column, value) => {
   console.log(sql);
   return execSQL(sql) //execSQL是我们定义的一个函数，返回值是Promise
 }
-module.exports = { getList, createNewList, updateList }
+
+const deleteList = (listname, id) => {
+  let sql = `delete from ${listname}  where id = '${id}'`
+  console.log(sql);
+  return execSQL(sql) //execSQL是我们定义的一个函数，返回值是Promise
+}
+module.exports = { getList, createNewList, updateList, deleteList }
