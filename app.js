@@ -1,5 +1,5 @@
 const handleBlogRoutes = require('./src/routes/route')
-
+const url = require('url')
 const querystring = require('querystring')
 
 const getPostData = (req, res) => {
@@ -14,10 +14,10 @@ const getPostData = (req, res) => {
     }
 
     let postData = '';
-    req.on('data', chunk => {
+    req.on('data', chunk => { //当有数据可读时触发
       postData += chunk.toString();
     })
-    req.on('end', () => {
+    req.on('end', () => {   //当没有数据可读时触发 
       if (!postData) {
         resolve({});
       }
@@ -29,6 +29,7 @@ const getPostData = (req, res) => {
   })
 }
 const handleServe = (req, res) => {
+  console.log(url.parse(req));
   res.setHeader('Content-Type', 'application/json') //设置数据返回的格式
   res.setHeader("Access-Control-Allow-Origin", "*");
   req.query = querystring.parse(req.url.split('?')[1])
